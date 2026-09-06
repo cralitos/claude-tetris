@@ -46,7 +46,8 @@ const skinSelect = document.getElementById('skin-select');
 
 let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
 let gridColor = '#22222e';
-let currentSkin = localStorage.getItem('tetrisSkin') || 'retro';
+const VALID_SKINS = ['retro', 'neon', 'pastel', 'pixel'];
+let currentSkin = VALID_SKINS.includes(localStorage.getItem('tetrisSkin')) ? localStorage.getItem('tetrisSkin') : 'retro';
 
 function applyTheme(theme) {
   document.body.classList.toggle('light', theme === 'light');
@@ -61,6 +62,7 @@ function toggleTheme() {
 }
 
 function applySkin(skin) {
+  if (!VALID_SKINS.includes(skin)) skin = 'retro';
   currentSkin = skin;
   localStorage.setItem('tetrisSkin', skin);
   document.body.classList.remove('skin-retro', 'skin-neon', 'skin-pastel', 'skin-pixel');
