@@ -252,10 +252,14 @@ function getHighScores() {
   try {
     const parsed = JSON.parse(localStorage.getItem('tetrisHighScores'));
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(e => e && typeof e.score === 'number' && !Number.isNaN(e.score));
+    return parsed.filter(e => e && typeof e.score === 'number' && !Number.isNaN(e.score)).slice(0, 5);
   } catch {
     return [];
   }
+}
+
+function setHidden(el, hide) {
+  if (el) el.classList.toggle('hidden', hide);
 }
 
 function getBestCombo() {
@@ -295,7 +299,7 @@ function endGame() {
   overlayTitle.textContent = 'GAME OVER';
   overlayScore.textContent = `Puntuación: ${score.toLocaleString()}`;
   overlay.classList.remove('hidden');
-  if (leaderboardRecapEl) leaderboardRecapEl.classList.remove('hidden');
+  setHidden(leaderboardRecapEl, false);
 
   // Update all-time bests unconditionally, regardless of top-5 qualification.
   if (maxCombo > getBestCombo()) localStorage.setItem('tetrisBestCombo', String(maxCombo));
@@ -303,7 +307,7 @@ function endGame() {
 
   const scores = getHighScores();
   const qualifies = scores.length < 5 || score > scores[scores.length - 1].score;
-  if (highscoreForm) highscoreForm.classList.toggle('hidden', !qualifies);
+  setHidden(highscoreForm, !qualifies);
   if (playerNameInput) playerNameInput.value = '';
 
   renderLeaderboard();
@@ -319,8 +323,8 @@ function togglePause() {
     cancelAnimationFrame(animId);
     overlayTitle.textContent = 'PAUSA';
     overlayScore.textContent = '';
-    if (leaderboardRecapEl) leaderboardRecapEl.classList.add('hidden');
-    if (highscoreForm) highscoreForm.classList.add('hidden');
+    setHidden(leaderboardRecapEl, true);
+    setHidden(highscoreForm, true);
     overlay.classList.remove('hidden');
   }
 }
@@ -399,7 +403,7 @@ if (saveScoreBtn) {
     const truncated = scores.slice(0, 5);
     const newIndex = truncated.indexOf(entry);
     localStorage.setItem('tetrisHighScores', JSON.stringify(truncated));
-    if (highscoreForm) highscoreForm.classList.add('hidden');
+    setHidden(highscoreForm, true);
     renderLeaderboard(newIndex);
   });
 }

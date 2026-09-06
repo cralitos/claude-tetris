@@ -318,16 +318,13 @@ kbd {
   max-width: 220px;
 }
 
-#leaderboard-recap.hidden {
-  display: none;
-}
-
 #highscore-form {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
+#leaderboard-recap.hidden,
 #highscore-form.hidden {
   display: none;
 }
