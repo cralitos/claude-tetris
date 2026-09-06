@@ -253,3 +253,113 @@ kbd {
 #restart-btn:hover {
   background: var(--btn-hover-bg);
 }
+
+/* ---- Leaderboard / Records ---- */
+.leaderboard-list {
+  list-style: none;
+  counter-reset: rank;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.leaderboard-list li {
+  counter-increment: rank;
+  font-size: 12px;
+  color: var(--fg);
+  padding: 2px 4px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+}
+
+.leaderboard-list li::before {
+  content: counter(rank) ". ";
+  color: var(--label-color);
+}
+
+.leaderboard-list li.new-entry {
+  background: color-mix(in srgb, var(--value-color) 15%, transparent);
+  border-color: var(--value-color);
+  color: var(--value-color);
+  font-weight: 700;
+}
+
+.records-stats {
+  font-size: 11px;
+  color: var(--control-text);
+  line-height: 1.4;
+}
+
+#records-section {
+  align-items: flex-start;
+}
+
+#reset-scores-btn {
+  margin-top: 2px;
+  background: transparent;
+  color: var(--control-text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 10px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.15s, color 0.15s;
+}
+
+#reset-scores-btn:hover {
+  background: var(--kbd-bg);
+  color: var(--fg);
+}
+
+#leaderboard-recap {
+  width: 100%;
+  max-width: 220px;
+}
+
+#leaderboard-recap.hidden {
+  display: none;
+}
+
+#highscore-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#highscore-form.hidden {
+  display: none;
+}
+
+#player-name-input {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  color: var(--fg);
+  padding: 6px 8px;
+  width: 110px;
+}
+
+#player-name-input:focus {
+  outline: none;
+  border-color: var(--value-color);
+}
+
+#save-score-btn {
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#save-score-btn:hover {
+  background: var(--btn-hover-bg);
+}
